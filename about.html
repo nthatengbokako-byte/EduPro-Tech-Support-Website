@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | EduPro Tech Support</title>
+<style>
+  /* Reset & Base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  body {
+    background-color: #0b1b2a;
+    color: #e0f7fa;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Blurry background logo */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/logo.png') no-repeat center center;
+    background-size: 500px;
+    opacity: 0.05;
+    filter: blur(8px);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Header */
+  header {
+    background-color: #0e2e3c;
+    text-align: center;
+    padding: 20px 10px;
+    border-bottom: 3px solid #00ff99;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    width: 120px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    color: #00ff99;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    position: relative;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #00ff99;
+    transition: width 0.3s;
+  }
+
+  nav a.active, nav a:hover {
+    color: #00cc88;
+    background: rgba(0, 255, 153, 0.1);
+  }
+
+  nav a.active::after, nav a:hover::after {
+    width: 100%;
+  }
+
+  /* Main */
+  main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(0, 40, 60, 0.6);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  h2 {
+    color: #00ff99;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-align: center;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+  }
+
+  h3 {
+    color: #aef9d8;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #00ff99;
+    padding-bottom: 5px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  /* Team Photo Circle */
+  .team-photo-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    position: relative;
+    height: 200px;
+  }
+
+  .photo-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #00ff99;
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.5);
+    position: relative;
+    background: rgba(0, 40, 60, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ff99;
+    font-size: 1.2rem;
+    transition: all 0.5s ease;
+    cursor: pointer;
+  }
+
+  .photo-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 153, 0.7);
+  }
+
+  .photo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-placeholder {
+    text-align: center;
+    padding: 20px;
+  }
+
+  /* Mission Section */
+  .mission-section {
+    background: rgba(0, 255, 153, 0.1);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border-left: 5px solid #00ff99;
+  }
+
+  .mission-section h3 {
+    border-bottom: none;
+    color: #00ff99;
+  }
+
+  /* Values Section */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
+  }
+
+  .value-card {
+    background: rgba(14, 46, 60, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 255, 153, 0.2);
+  }
+
+  .value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border-color: #00ff99;
+  }
+
+  .value-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #00ff99;
+  }
+
+  .value-card h4 {
+    color: #00ff99;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+  }
+
+  /* Team Section */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 25px 0;
+  }
+
+  .team-member {
+    background: rgba(14, 46, 60, 0.7);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 255, 153, 0.2);
+    position: relative;
+  }
+
+  .team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border-color: #00ff99;
+  }
+
+  .member-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    background: rgba(0, 255, 153, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #00ff99;
+    overflow: hidden;
+    border: 2px solid #00ff99;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .member-photo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 153, 0.5);
+  }
+
+  .member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 50%;
+  }
+
+  .member-photo:hover .photo-overlay {
+    opacity: 1;
+  }
+
+  .photo-overlay span {
+    color: white;
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .team-member h4 {
+    color: #00ff99;
+    margin-bottom: 5px;
+    font-size: 1.3rem;
+  }
+
+  .member-role {
+    color: #aef9d8;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  /* Timeline Section */
+  .timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 30px auto;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #00ff99;
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    padding: 15px 30px;
+    position: relative;
+    width: 50%;
+    box-sizing: border-box;
+  }
+
+  .timeline-item:nth-child(odd) {
+    left: 0;
+  }
+
+  .timeline-item:nth-child(even) {
+    left: 50%;
+  }
+
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #00ff99;
+    border-radius: 50%;
+    top: 20px;
+  }
+
+  .timeline-item:nth-child(odd)::after {
+    right: -8px;
+  }
+
+  .timeline-item:nth-child(even)::after {
+    left: -8px;
+  }
+
+  .timeline-content {
+    background: rgba(14, 46, 60, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 153, 0.2);
+  }
+
+  .timeline-year {
+    color: #00ff99;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  /* Stats Section */
+  .stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+  }
+
+  .stat-card {
+    background: rgba(0, 255, 153, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(0, 255, 153, 0.2);
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #00ff99;
+    margin-bottom: 5px;
+  }
+
+  .stat-label {
+    font-size: 1rem;
+    color: #aef9d8;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #0e2e3c;
+    border-top: 3px solid #00ff99;
+    margin-top: 40px;
+  }
+
+  /* Responsive */
+  @media screen and (max-width:768px) {
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.3rem; }
+    nav a { font-size: 0.9rem; }
+    main { padding: 20px; }
+    
+    .timeline::before {
+      left: 30px;
+    }
+    
+    .timeline-item {
+      width: 100%;
+      padding-left: 70px;
+      padding-right: 25px;
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 0;
+    }
+    
+    .timeline-item::after {
+      left: 22px !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="images/logo.png" alt="EduPro Logo" class="logo">
+  <h1>EduPro Tech Support</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="files/Troubleshooting_Questions.pdf">Troubleshooting</a></li>
+      <li><a href="https://forms.office.com/pages/responsepage.aspx?id=RI8M4Wn0j0S8DdeBKI_wG7yJFRG5AVhPre8NqnakxzRUNktWNkZCTzJBN1RTNVNFR0lSME1ZM0xSMi4u&route=shorturl">Call Log</a></li>
+      <li><a href="files/Asset_Register.pdf">Assets Procedure</a></li>
+      <li><a href="files/Escalation_Procedure.pdf">Escalation Procedure</a></li>
+      <li><a href="contact_us.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h2>About EduPro Tech Support</h2>
+  
+  <div class="team-photo-circle">
+  <div class="photo-circle" id="teamPhoto">
+    <img src="images/logo.png" alt="EduPro Logo">
+  </div>
+</div>
+
+  
+  <section class="mission-section">
+    <h3>Our Mission</h3>
+    <p>At EduPro Tech Support, we are dedicated to providing exceptional IT solutions that empower educational institutions and businesses to achieve their goals. We believe technology should enable growth, not hinder it.</p>
+    <p>Our team of certified professionals works tirelessly to ensure your systems run smoothly, securely, and efficiently, allowing you to focus on what matters most - education and innovation.</p>
+  </section>
+
+  <section>
+    <h3>Our Values</h3>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🔒</div>
+        <h4>Security First</h4>
+        <p>We prioritize the protection of your data and systems with industry-leading security practices.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <h4>Rapid Response</h4>
+        <p>Our team provides quick and efficient solutions to minimize downtime and maximize productivity.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📈</div>
+        <h4>Growth Focused</h4>
+        <p>We design solutions that scale with your organization, supporting your long-term success.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h4>Partnership</h4>
+        <p>We view our clients as partners and work collaboratively to achieve shared goals.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Our Journey</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2010</div>
+          <p>EduPro Tech Support founded with a focus on educational institutions</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2013</div>
+          <p>Expanded services to include small and medium businesses</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2016</div>
+          <p>Launched our 24/7 emergency support service</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2019</div>
+          <p>Introduced advanced cybersecurity services</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2022</div>
+          <p>Reached milestone of supporting 100+ educational institutions</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-year">2025</div>
+          <p>Continuing to innovate with AI-powered support solutions</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Our Leadership Team</h3>
+    <div class="team-grid">
+      <div class="team-member">
+        <div class="member-photo" data-member="nthateng">
+          <div class="photo-overlay">
+            <span>Click to add photo</span>
+          </div>
+        
+          <img src="images/Nthateng Bokako.jpeg" alt="EduPro Logo" class="logo">
+        </div>
+        <h4>Nthateng Bokako</h4>
+        <div class="member-role">Chief Executive Officer</div>
+        <p>Visionary leader with 20+ years in technology and business strategy. Founded EduPro with a mission to bridge the technology gap in education.</p>
+      </div>
+      <div class="team-member">
+        <div class="member-photo" data-member="thandokhule">
+          <div class="photo-overlay">
+            <span>Click to add photo</span>
+          </div>
+          <img src="images/Thandokhule Toli.jpeg" alt="EduPro Logo" class="logo">
+        </div>
+        <h4>Thandokhule Toli</h4>
+        <div class="member-role">Chief Operations Officer</div>
+        <p>Operations expert specializing in process optimization and team management. Ensures seamless service delivery across all departments.</p>
+      </div>
+      <div class="team-member">
+        <div class="member-photo" data-member="thakane">
+          <div class="photo-overlay">
+            <span>Click to add photo</span>
+          </div>
+          <img src="images/Thakane Mankgaba.jpeg" alt="EduPro Logo" class="logo">
+        </div>
+        <h4>Thakane Mankgaba</h4>
+        <div class="member-role">Chief Technology Officer</div>
+        <p>Technical visionary with expertise in system architecture and emerging technologies. Leads our innovation and R&D initiatives.</p>
+      </div>
+      <div class="team-member">
+        <div class="member-photo" data-member="nonjabulo">
+          <div class="photo-overlay">
+            <span>Click to add photo</span>
+          </div>
+          <img src="images/Nonjabulo Linda.jpeg" alt="EduPro Logo" class="logo">
+        </div>
+        <h4>Nonjabulo Linda</h4>
+        <div class="member-role">Director of Client Relations</div>
+        <p>Client-focused professional with exceptional communication skills. Builds and maintains strong relationships with our educational partners.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h3>By The Numbers</h3>
+    <div class="stats-section">
+      <div class="stat-card">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">250+</div>
+        <div class="stat-label">Clients Served</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">98%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Support Available</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Our Commitment</h3>
+    <p>At EduPro, we're committed to staying at the forefront of technology trends while maintaining the personalized service that has defined our company since its inception. We continuously invest in training for our team and upgrading our tools to provide the best possible support for our clients.</p>
+    <p>Whether you're a small school or a large corporation, we treat your technology challenges with the same dedication and expertise, because we believe that reliable IT support is fundamental to success in today's digital world.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 EduPro Tech Support | Professional IT Services for Educational Excellence</p>
+</footer>
+
+<script>
+  // Function to handle photo upload for team photo circle
+  document.getElementById('teamPhoto').addEventListener('click', function() {
+    uploadPhoto(this, 'CEO: Nthateng Bokako');
+  });
+
+  // Function to handle photo upload for team members
+  document.querySelectorAll('.member-photo').forEach(photo => {
+    photo.addEventListener('click', function() {
+      const memberName = this.closest('.team-member').querySelector('h4').textContent;
+      uploadPhoto(this, memberName);
+    });
+  });
+
+  // Generic photo upload function
+  function uploadPhoto(element, name) {
+    // Create a file input element
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    
+    // Handle file selection
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          // Clear existing content
+          element.innerHTML = '';
+          
+          // Create and add the image
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.alt = name;
+          element.appendChild(img);
+          
+          // Add hover overlay for team members
+          if (element.classList.contains('member-photo')) {
+            const overlay = document.createElement('div');
+            overlay.className = 'photo-overlay';
+            overlay.innerHTML = '<span>Change photo</span>';
+            element.appendChild(overlay);
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    // Trigger file selection
+    fileInput.click();
+  }
+</script>
+
+</body>
+</html>

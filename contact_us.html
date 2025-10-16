@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | EduPro Tech Support</title>
+<style>
+  /* Reset & Base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  body {
+    background: linear-gradient(135deg, #0b1b2a 0%, #0d2538 100%);
+    color: #cde7f0;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Animated background elements */
+  .bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 207, 174, 0.1);
+    animation: float 15s infinite linear;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-20px) translateX(10px); }
+    100% { transform: translateY(0) translateX(0); }
+  }
+
+  /* Blurry background logo */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/logo.png') no-repeat center center;
+    background-size: 450px;
+    opacity: 0.05;
+    filter: blur(12px);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Header */
+  header {
+    background: rgba(14, 46, 60, 0.9);
+    text-align: center;
+    padding: 20px 10px;
+    border-bottom: 3px solid #00cfae;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+  }
+  .logo {
+    width: 110px;
+    display: block;
+    margin: 0 auto 10px;
+    filter: drop-shadow(0 0 5px rgba(0, 255, 170, 0.5));
+  }
+  h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #00cfae, #00ffaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
+  nav a {
+    color: #00cfae;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    font-size: 1rem;
+    position: relative;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #00ffaa;
+    transition: width 0.3s;
+  }
+  nav a:hover::after, nav a.active::after { width: 100%; }
+  nav a.active, nav a:hover {
+    color: #00ffaa;
+    text-shadow: 0 0 4px #00ffaa;
+    background: rgba(0, 255, 170, 0.1);
+  }
+
+  /* Main */
+  main {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 35px;
+    background: rgba(0,35,50,0.85);
+    border-radius: 15px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 207, 174, 0.2);
+  }
+  h2 {
+    color: #00ffaa;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(0, 255, 170, 0.3);
+  }
+  p {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Contact Layout */
+  .contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .contact-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Contact Info Section */
+  .contact-info {
+    background: rgba(14, 46, 60, 0.7);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 255, 170, 0.2);
+  }
+
+  .contact-info h3 {
+    color: #00ffaa;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(0, 255, 170, 0.3);
+    padding-bottom: 10px;
+  }
+
+  .contact-method {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(0, 255, 170, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .contact-method:hover {
+    background: rgba(0, 255, 170, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .contact-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 255, 170, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.5rem;
+    color: #00ffaa;
+    flex-shrink: 0;
+  }
+
+  .contact-details h4 {
+    color: #aef9d8;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+  }
+
+  .contact-details p {
+    text-align: left;
+    margin-bottom: 0;
+    color: #cde7f0;
+  }
+
+  .contact-link {
+    color: #00ffaa;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-link:hover {
+    color: #00cc88;
+    text-decoration: underline;
+  }
+
+  /* Contact Form */
+  .contact-form {
+    background: rgba(14, 46, 60, 0.7);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 255, 170, 0.2);
+  }
+
+  .contact-form h3 {
+    color: #00ffaa;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(0, 255, 170, 0.3);
+    padding-bottom: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #aef9d8;
+    font-weight: bold;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(0, 20, 30, 0.7);
+    border: 1px solid rgba(0, 255, 170, 0.3);
+    border-radius: 8px;
+    color: #e0f7fa;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #00ffaa;
+    box-shadow: 0 0 8px rgba(0, 255, 170, 0.5);
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .required::after {
+    content: " *";
+    color: #ff6b6b;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+  }
+
+  .btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: linear-gradient(90deg, #00cfae, #00ffaa);
+    color: #0b1b2a;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(90deg, #00e68a, #00ffaa);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 170, 0.3);
+  }
+
+  /* Office Hours */
+  .office-hours {
+    margin-top: 40px;
+    background: rgba(0, 255, 170, 0.1);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 5px solid #00ffaa;
+  }
+
+  .office-hours h3 {
+    color: #00ffaa;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+  }
+
+  .hours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .hour-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 255, 170, 0.2);
+  }
+
+  .day {
+    color: #aef9d8;
+    font-weight: bold;
+  }
+
+  .time {
+    color: #cde7f0;
+  }
+
+  /* Emergency Notice */
+  .emergency-notice {
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.5);
+    border-left: 5px solid #ff6b6b;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .emergency-notice h4 {
+    color: #ff6b6b;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+  }
+
+  .emergency-notice p {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  /* Success Message */
+  .success-message {
+    display: none;
+    background: rgba(0, 255, 170, 0.1);
+    border: 1px solid #00ffaa;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .success-message h3 {
+    color: #00ffaa;
+    margin-bottom: 10px;
+  }
+
+  /* Map Section */
+  .map-section {
+    margin-top: 40px;
+    background: rgba(14, 46, 60, 0.7);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 255, 170, 0.2);
+  }
+
+  .map-section h3 {
+    color: #00ffaa;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+  }
+
+  .map-placeholder {
+    background: rgba(0, 20, 30, 0.7);
+    border-radius: 8px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aef9d8;
+    font-size: 1.1rem;
+    border: 1px solid rgba(0, 255, 170, 0.3);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 18px;
+    background: rgba(14, 46, 60, 0.9);
+    border-top: 3px solid #00cfae;
+    margin-top: 50px;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+  }
+  footer p {
+    color: #00ffaa;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  /* Responsive */
+  @media screen and (max-width:768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.8rem; }
+    nav ul { gap: 15px; }
+    nav a { font-size: 0.9rem; }
+    main { padding: 20px; }
+    .contact-info, .contact-form {
+      padding: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Animated background particles -->
+<div class="bg-particles" id="particles"></div>
+
+<header>
+  <img src="images/logo.png" alt="EduPro Logo" class="logo">
+  <h1>EduPro Tech Support</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="files/Troubleshooting_Questions.pdf">Troubleshooting</a></li>
+      <li><a href="https://forms.office.com/pages/responsepage.aspx?id=RI8M4Wn0j0S8DdeBKI_wG7yJFRG5AVhPre8NqnakxzRUNktWNkZCTzJBN1RTNVNFR0lSME1ZM0xSMi4u&route=shorturl">Call Log</a></li>
+      <li><a href="files/Asset_Register.pdf">Assets Procedure</a></li>
+      <li><a href="files/Escalation_Procedure.pdf">Escalation Procedure</a></li>
+      <li><a href="contact_us.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h2>Contact EduPro Tech Support</h2>
+  <p>Get in touch with our expert team for any technical assistance or inquiries. We're here to help you with all your IT support needs.</p>
+
+  <div class="contact-container">
+    <!-- Contact Information -->
+    <div class="contact-info">
+      <h3>Get In Touch</h3>
+      
+      <div class="contact-method">
+        <div class="contact-icon">📞</div>
+        <div class="contact-details">
+          <h4>Phone Support</h4>
+          <p>General Inquiries: <a href="tel:+27114987118" class="contact-link">+27 11 498 7118</a></p>
+          <p>Emergency Support: <a href="tel:+27831234567" class="contact-link">+27 83 123 4567</a></p>
+          <p><small>Available 24/7 for critical issues</small></p>
+        </div>
+      </div>
+
+      <div class="contact-method">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-details">
+          <h4>Email Us</h4>
+          <p>General: <a href="mailto:info@eduprotech.com" class="contact-link">info@eduprotech.com</a></p>
+          <p>Support: <a href="mailto:support@eduprotech.com" class="contact-link">support@eduprotech.com</a></p>
+          <p>Sales: <a href="mailto:sales@eduprotech.com" class="contact-link">sales@eduprotech.com</a></p>
+        </div>
+      </div>
+
+      <div class="contact-method">
+        <div class="contact-icon">📍</div>
+        <div class="contact-details">
+          <h4>Visit Our Office</h4>
+          <p>123 Tech Boulevard</p>
+          <p>Innovation District</p>
+          <p>Johannesburg, 2000</p>
+          <p>South Africa</p>
+        </div>
+      </div>
+
+      <div class="contact-method">
+        <div class="contact-icon">💬</div>
+        <div class="contact-details">
+          <h4>Live Chat</h4>
+          <p>Available during business hours</p>
+          <p>Click the chat icon in the bottom right</p>
+          <p>Average response time: &lt; 2 minutes</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <h3>Send Us a Message</h3>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name" class="required">Your Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="required">Email Address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+
+        <div class="form-group">
+          <label for="department" class="required">Department/Organization</label>
+          <input type="text" id="department" name="department" required>
+        </div>
+
+        <div class="form-group">
+          <label for="subject" class="required">Subject</label>
+          <select id="subject" name="subject" required>
+            <option value="">Select a topic</option>
+            <option value="Technical Support">Technical Support</option>
+            <option value="Hardware Issue">Hardware Issue</option>
+            <option value="Software Problem">Software Problem</option>
+            <option value="Network Connectivity">Network Connectivity</option>
+            <option value="Account Access">Account Access</option>
+            <option value="Service Inquiry">Service Inquiry</option>
+            <option value="Billing Question">Billing Question</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message" class="required">Message</label>
+          <textarea id="message" name="message" placeholder="Please describe your issue or inquiry in detail..." required></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </div>
+      </form>
+
+      <div class="success-message" id="successMessage">
+        <h3>Thank You!</h3>
+        <p>Your message has been sent successfully. We'll get back to you within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Office Hours -->
+  <div class="office-hours">
+    <h3>Office Hours</h3>
+    <div class="hours-grid">
+      <div class="hour-item">
+        <span class="day">Monday - Friday</span>
+        <span class="time">8:00 AM - 6:00 PM</span>
+      </div>
+      <div class="hour-item">
+        <span class="day">Saturday</span>
+        <span class="time">9:00 AM - 2:00 PM</span>
+      </div>
+      <div class="hour-item">
+        <span class="day">Sunday</span>
+        <span class="time">Emergency Only</span>
+      </div>
+      <div class="hour-item">
+        <span class="day">Public Holidays</span>
+        <span class="time">Emergency Support</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Section -->
+  <div class="map-section">
+    <h3>Our Location</h3>
+    <div class="map-placeholder">
+      Interactive Map - Johannesburg Office Location
+    </div>
+  </div>
+
+  <!-- Emergency Notice -->
+  <div class="emergency-notice">
+    <h4>🚨 Emergency Technical Support</h4>
+    <p>For critical system outages or security incidents that require immediate attention</p>
+    <p><strong>Emergency Hotline: <a href="tel:+27831234567" class="contact-link">+27 83 123 4567</a></strong></p>
+    <p>Available 24/7/365 for genuine emergencies</p>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 EduPro Tech Support | Reliable IT Solutions for Bright Minds</p>
+</footer>
+
+<script>
+  // Create animated background particles
+  document.addEventListener('DOMContentLoaded', function() {
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 20;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      // Random properties
+      const size = Math.random() * 100 + 50;
+      const posX = Math.random() * 100;
+      const posY = Math.random() * 100;
+      const animationDelay = Math.random() * 15;
+      const opacity = Math.random() * 0.1 + 0.05;
+      
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${posX}%`;
+      particle.style.top = `${posY}%`;
+      particle.style.animationDelay = `${animationDelay}s`;
+      particle.style.opacity = opacity;
+      
+      particlesContainer.appendChild(particle);
+    }
+    
+    // Form submission handling
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // In a real application, you would send the form data to a server here
+      // For this demo, we'll just show the success message
+      
+      // Hide the form and show success message
+      form.style.display = 'none';
+      successMessage.style.display = 'block';
+      
+      // Scroll to success message
+      successMessage.scrollIntoView({ behavior: 'smooth' });
+      
+      // Log form data (for demo purposes)
+      console.log('Contact form submitted with data:', {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        department: document.getElementById('department').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

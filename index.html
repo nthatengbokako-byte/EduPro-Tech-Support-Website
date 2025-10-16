@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduPro Tech Support</title>
+<style>
+/* Reset & Base */
+* { 
+  margin:0; 
+  padding:0; 
+  box-sizing:border-box; 
+  font-family:'Segoe UI', sans-serif; 
+}
+
+body { 
+  background: linear-gradient(135deg, #0b1b2a 0%, #0d2538 100%); 
+  color: #cde7f0; 
+  line-height:1.6; 
+  min-height:100vh; 
+  position:relative; 
+  overflow-x:hidden;
+}
+
+/* Animated background elements */
+.bg-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0, 207, 174, 0.1);
+  animation: float 15s infinite linear;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-20px) translateX(10px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+/* Blurry logo background */
+body::before {
+  content:"";
+  position: fixed; 
+  top:0; 
+  left:0; 
+  width:100%; 
+  height:100%;
+  background: url('images/logo.png') no-repeat center center;
+  background-size: 450px; 
+  opacity:0.05; 
+  filter: blur(12px);
+  z-index:-1; 
+  pointer-events:none;
+}
+
+/* Header */
+header { 
+  background: rgba(14, 46, 60, 0.9); 
+  text-align:center; 
+  padding:20px 10px; 
+  border-bottom:3px solid #00cfae; 
+  position:sticky; 
+  top:0; 
+  z-index:100; 
+  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+}
+.logo { 
+  width:110px; 
+  display:block; 
+  margin:0 auto 10px; 
+  filter: drop-shadow(0 0 5px rgba(0, 255, 170, 0.5));
+}
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #00cfae, #00ffaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+}
+
+nav ul { 
+  list-style:none; 
+  display:flex; 
+  justify-content:center; 
+  gap:25px; 
+  flex-wrap:wrap; 
+  margin-top: 15px;
+}
+nav a { 
+  color:#00cfae; 
+  text-decoration:none; 
+  font-weight:bold; 
+  transition:0.3s; 
+  font-size:1rem; 
+  position: relative;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #00ffaa;
+  transition: width 0.3s;
+}
+nav a:hover::after, nav a.active::after { width: 100%; }
+nav a.active, nav a:hover { 
+  color:#00ffaa; 
+  text-shadow: 0 0 4px #00ffaa; 
+  background: rgba(0, 255, 170, 0.1);
+}
+
+/* Main */
+main { 
+  max-width:1200px; 
+  margin:50px auto; 
+  padding:35px; 
+  background: rgba(0,35,50,0.85); 
+  border-radius:15px; 
+  box-shadow:0 12px 35px rgba(0,0,0,0.5); 
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(0, 207, 174, 0.2);
+}
+h2 { 
+  text-align:center; 
+  margin-bottom: 30px;
+}
+p { 
+  font-size:1.1rem; 
+  margin-bottom:25px; 
+  text-align: center;
+}
+
+/* Typing Animation for Welcome Text */
+.typing-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.typing-text {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 4px solid #00ffaa;
+  font-size:2.4rem;
+  text-shadow: 0 0 8px #00ffaa;
+  animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+  text-align: center;
+  color: #00ffaa;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+/* Hero section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.hero p {
+  max-width: 700px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+/* Services Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 40px 0;
+}
+
+.service-card {
+  background: rgba(14, 46, 60, 0.7);
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 207, 174, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 170, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.service-card:hover::before {
+  left: 100%;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: #00ffaa;
+}
+
+.service-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #00ffaa;
+}
+
+.service-card h3 {
+  color: #00ffaa;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.service-card p {
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Level Card */
+.level-card { 
+  background: linear-gradient(145deg, #00cfae, #00ffaa); 
+  color:#0b1b2a; 
+  text-align:center; 
+  padding:22px; 
+  border-radius:15px; 
+  margin:20px auto; 
+  max-width:600px; 
+  box-shadow:0 6px 20px rgba(0,0,0,0.4); 
+  transition: transform 0.4s, box-shadow 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.level-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(30deg);
+  transition: all 0.5s;
+  opacity: 0;
+}
+.level-card:hover::after {
+  opacity: 1;
+  transform: rotate(30deg) translate(10%, 10%);
+}
+.level-card:hover { 
+  transform:scale(1.05) rotate(-1deg); 
+  box-shadow:0 12px 35px rgba(0,0,0,0.6); 
+}
+.level-card h3 { font-size:1.7rem; margin-bottom:12px; }
+.level-card p { font-size:1rem; }
+
+/* Who We Help */
+.who-we-help { 
+  margin-top:40px; 
+  padding:25px; 
+  background: rgba(0,207,174,0.12); 
+  border-left:5px solid #00ffaa; 
+  border-radius:12px; 
+  line-height:1.7; 
+  color:#cde7f0;
+  transition: all 0.3s ease;
+}
+.who-we-help:hover {
+  background: rgba(0,207,174,0.18);
+  transform: translateX(5px);
+}
+.who-we-help h3 { 
+  color:#00ffaa; 
+  font-size:1.7rem; 
+  margin-bottom:18px; 
+  text-align: center;
+}
+.who-we-help ul { 
+  list-style: none; 
+  padding-left:0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.who-we-help li { 
+  margin-bottom:10px; 
+  padding-left: 25px;
+  position: relative;
+}
+.who-we-help li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #00ffaa;
+  font-weight: bold;
+}
+.who-we-help p { 
+  text-align: center;
+  font-style: italic;
+}
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+  margin-top: 40px;
+  padding: 30px;
+  background: rgba(0, 207, 174, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 255, 170, 0.3);
+}
+
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(90deg, #00cfae, #00ffaa);
+  color: #0b1b2a;
+  padding: 12px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 207, 174, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 207, 174, 0.5);
+}
+
+/* Footer */
+footer { 
+  text-align:center; 
+  padding:18px; 
+  background: rgba(14, 46, 60, 0.9); 
+  border-top:3px solid #00cfae; 
+  margin-top:50px; 
+  box-shadow:0 -4px 15px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+}
+footer p { 
+  color:#00ffaa; 
+  font-weight:bold; 
+  margin-bottom: 0;
+}
+
+/* Responsive */
+@media screen and (max-width:768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size:1.8rem; }
+  .typing-text { font-size: 1.8rem; }
+  nav ul { gap: 15px; }
+  nav a { font-size:0.9rem; }
+  .level-card, main { padding:20px; }
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  .who-we-help ul {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Animated background particles -->
+<div class="bg-particles" id="particles"></div>
+
+<header>
+  <img src="images/logo.png" alt="EduPro Logo" class="logo">
+  <h1>EduPro Tech Support</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="files/Troubleshooting_Questions.pdf">Troubleshooting</a></li>
+      <li><a href="https://forms.office.com/pages/responsepage.aspx?id=RI8M4Wn0j0S8DdeBKI_wG7yJFRG5AVhPre8NqnakxzRUNktWNkZCTzJBN1RTNVNFR0lSME1ZM0xSMi4u&route=shorturl">Call Log</a></li>
+      <li><a href="files/Asset_Register.pdf">Assets Procedure</a></li>
+      <li><a href="files/Escalation_Procedure.pdf">Escalation Procedure</a></li>
+      <li><a href="contact_us.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<main>
+  <section class="hero">
+    <div class="typing-container">
+      <h2 class="typing-text">Welcome to EduPro Tech Support</h2>
+    </div>
+    <p>Providing professional IT assistance with efficiency, security, and reliability for businesses and institutions.</p>
+  </section>
+
+  <section class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Quick Response</h3>
+      <p>Our team provides fast and efficient solutions to your technical issues, minimizing downtime.</p>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">🛡️</div>
+      <h3>Secure Solutions</h3>
+      <p>We prioritize the security of your systems and data with industry-best practices.</p>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">📈</div>
+      <h3>Growth Focused</h3>
+      <p>Our IT solutions scale with your business, supporting your growth and evolution.</p>
+    </div>
+  </section>
+
+  <div class="who-we-help">
+    <h3>Who We Help</h3>
+    <ul>
+      <li>Educational Institutions & Schools</li>
+      <li>Small & Medium Enterprises (SMEs)</li>
+      <li>Corporate Clients & Office Networks</li>
+      <li>Brands & Startups</li>
+      <li>Non-profits & Community Organizations</li>
+    </ul>
+    <p>Our clients receive tailored IT support, ensuring smooth operations and maximum productivity across all levels.</p>
+  </div>
+
+  <section class="cta-section">
+    <h3>Ready to Enhance Your IT Experience?</h3>
+    <p>Contact us today for a consultation and discover how EduPro can transform your technology infrastructure.</p>
+    <a href="form.html" class="cta-button">Get Support Now</a>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 EduPro Tech Support | Reliable IT Solutions for Bright Minds</p>
+</footer>
+
+<script>
+// Create animated background particles
+document.addEventListener('DOMContentLoaded', function() {
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = 20;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    
+    // Random properties
+    const size = Math.random() * 100 + 50;
+    const posX = Math.random() * 100;
+    const posY = Math.random() * 100;
+    const animationDelay = Math.random() * 15;
+    const opacity = Math.random() * 0.1 + 0.05;
+    
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${posX}%`;
+    particle.style.top = `${posY}%`;
+    particle.style.animationDelay = `${animationDelay}s`;
+    particle.style.opacity = opacity;
+    
+    particlesContainer.appendChild(particle);
+  }
+  
+  // Add subtle hover effect to service cards
+  const serviceCards = document.querySelectorAll('.service-card');
+  serviceCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-10px)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0)';
+    });
+  });
+});
+</script>
+
+</body>
+</html>
